@@ -1,0 +1,91 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class EventTriggerListener : EventTrigger
+{
+    public delegate void VoidDelegate(GameObject go);
+
+    public VoidDelegate onClick;
+    public VoidDelegate onDown;
+    public VoidDelegate onEnter;
+    public VoidDelegate onExit;
+    public VoidDelegate onUp;
+    public VoidDelegate onSelect;
+    public VoidDelegate onUpdateSelect;
+
+    public static EventTriggerListener Get(GameObject go)
+    {
+        EventTriggerListener lister = go.GetComponent<EventTriggerListener>();
+        if (lister == null)
+        {
+            lister = go.AddComponent<EventTriggerListener>();
+        }
+
+        return lister;
+    }
+
+    public override void OnPointerClick(PointerEventData eventData)
+    {
+        //onClick?.Invoke(gameObject);
+        if (onClick!=null)
+        {
+            onClick.Invoke(gameObject);
+        }
+
+    }
+
+    public override void OnPointerDown(PointerEventData eventData)
+    {
+        if (onDown != null)
+        { 
+            onDown.Invoke(gameObject);
+        }
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        if (onEnter != null)
+        {
+            onEnter.Invoke(gameObject);
+        }
+        //onEnter?.Invoke(gameObject);
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        if (onExit != null)
+        {
+            onExit.Invoke(gameObject);
+        }
+
+        //onExit?.Invoke(gameObject);
+    }
+
+    public override void OnPointerUp(PointerEventData eventData)
+    {
+        if (onUp != null)
+        {
+            onUp.Invoke(gameObject);
+        }
+
+        //onUp?.Invoke(gameObject);
+    }
+
+    public override void OnSelect(BaseEventData eventBaseData)
+    {
+        if (onSelect != null)
+        {
+            onSelect.Invoke(gameObject);
+        }
+        //onSelect?.Invoke(gameObject);
+    }
+
+    public override void OnUpdateSelected(BaseEventData eventBaseData)
+    {
+        if (onUpdateSelect != null)
+        {
+            onUpdateSelect.Invoke(gameObject);
+        }
+        //onUpdateSelect?.Invoke(gameObject);
+    }
+}
